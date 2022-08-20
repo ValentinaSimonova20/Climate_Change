@@ -1,0 +1,69 @@
+swagger: '2.0' #version of Swagger
+info:
+  description: Weather requests api
+  version: 1.0.0 #API version
+  title: Weather requests # API title
+  license: #Swagger license info
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+schemes:
+  - http
+paths:
+  '/getDailyWeatherInfo':
+    get:
+      summary: get daily weather info by city, from startDate to endDate
+      description: Returns daily weather info (min temp, max temp, avg temp)
+      operationId: getDailyWeatherInfo
+      produces:
+        - application/json
+      parameters:
+        - name: city
+          in: path
+          description: name of city from which you want to get weather info
+          required: true
+          type: string
+        - name: startDate
+          in: path
+          description: date from which you want to get weather info
+          required: true
+          type: string
+        - name: endDate
+          in: path
+          description: date to with you want to get weather info
+          required: true
+          type: string
+      responses: # API response
+        '200': #Successful status code
+          description: successful operation #Successful status description
+          schema:
+            $ref: '#/definitions/WeatherDailyData' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid Employee ID supplied #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: Employee not found #Unsuccessful response description
+definitions: # Object definition
+  WeatherDailyData:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: 'TemperatureDailyInfo'
+        description: list of temp daily infos
+  TemperatureDailyInfo:
+    type: object
+    properties:
+      date:
+        type: string
+        description: date of temp
+      tavg:
+        type: string
+        description: avg temp in this date
+      tmin:
+        type: string
+        description: min temp in this date
+      tmax:
+        type: string
+        description: max temp in this date
+
