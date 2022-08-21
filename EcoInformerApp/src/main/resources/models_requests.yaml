@@ -1,4 +1,4 @@
-swagger: '2.0' #version of Swagger
+swagger: '2.0'
 info:
   description: Weather requests api
   version: 1.0.0 #API version
@@ -9,9 +9,13 @@ info:
 host: localhost
 schemes:
   - http
+tags:
+  - name: Weather
 paths:
   '/getDailyWeatherInfo':
     get:
+      tags:
+        - Weather
       summary: get daily weather info by city, from startDate to endDate
       description: Returns daily weather info (min temp, max temp, avg temp)
       operationId: getDailyWeatherInfo
@@ -19,30 +23,30 @@ paths:
         - application/json
       parameters:
         - name: city
-          in: path
+          in: query
           description: name of city from which you want to get weather info
           required: true
           type: string
         - name: startDate
-          in: path
+          in: query
           description: date from which you want to get weather info
           required: true
           type: string
         - name: endDate
-          in: path
+          in: query
           description: date to with you want to get weather info
           required: true
           type: string
-      responses: # API response
-        '200': #Successful status code
-          description: successful operation #Successful status description
+      responses:
+        '200':
+          description: successful operation
           schema:
             $ref: '#/definitions/WeatherDailyData' #Response object details
         '400': #Unsuccessful response code
           description: Invalid Employee ID supplied #Unsuccessful response description
         '404': #Unsuccessful response code
           description: Employee not found #Unsuccessful response description
-definitions: # Object definition
+definitions:
   WeatherDailyData:
     type: object
     properties:
@@ -66,4 +70,13 @@ definitions: # Object definition
       tmax:
         type: string
         description: max temp in this date
+  WeatherRequest:
+    type: object
+    properties:
+      city:
+        type: string
+      startDate:
+        type: string
+      endDate:
+        type: string
 
