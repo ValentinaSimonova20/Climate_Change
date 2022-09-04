@@ -14,7 +14,7 @@ public class WeatherController {
 
     private final WeatherService weatherService;
 
-    @GetMapping
+    @GetMapping("/dailyweather")
     public @ResponseBody WeatherDailyData getWeatherDailyInfo(WeatherRequest weatherRequest) {
         return weatherService.getWeatherDailyData(weatherRequest);
     }
