@@ -1,7 +1,7 @@
 package com.simonova.weatherapp.controllers;
 
-import com.simonova.weatherapp.controllers.model.WeatherRequest;
-import com.simonova.weatherapp.requests.weather.model.WeatherDailyData;
+import com.simonova.weatherapp.model.WeatherDailyData;
+import com.simonova.weatherapp.model.WeatherRequest;
 import com.simonova.weatherapp.service.weather.WeatherService;
 import com.simonova.weatherapp.service.weather.model.WeatherSeasonData;
 import lombok.AllArgsConstructor;

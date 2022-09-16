@@ -1,0 +1,143 @@
+swagger: '2.0'
+info:
+  description: Weather requests api
+  version: 1.0.0 #API version
+  title: Weather requests # API title
+  license: #Swagger license info
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+schemes:
+  - http
+paths:
+  '/v1/forward':
+    get:
+      tags:
+        - Location
+      summary: get location data by query (address) and accesskey to api
+      description: Returns location info - latitude and longitude
+      operationId: getLocationData
+      produces:
+        - application/json
+      parameters:
+        - name: query
+          in: query
+          description: address by which you get coordinates
+          required: true
+          type: string
+        - name: accessKey
+          in: query
+          description: accessKey to api
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LocationsData' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid request #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: Address not found #Unsuccessful response description
+
+  '/point/daily':
+    get:
+      tags:
+        - Weather
+      summary: get daily weather from start date to end date in certain place
+      description: returns weather info - tavg, tmin, tmax
+      operationId: getWeather
+      produces:
+        - application/json
+      parameters:
+        - name: X-RapidAPI-Key
+          in: header
+          type: string
+          required: true
+        - name: X-RapidAPI-Host
+          in: header
+          type: string
+          required: true
+        - name: lat
+          in: query
+          description: latitude of place of which you want to get a weather info
+          type: string
+          required: true
+        - name: lon
+          in: query
+          description: longtitude of place of which you want to get a weather info
+          type: string
+          required: true
+        - name: start
+          in: query
+          description: start date of your weather report
+          type: string
+          required: true
+        - name: end
+          in: query
+          description: ed date of your weather report
+          type: string
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/WeatherDailyData' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid request #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: Weather info not found #Unsuccessful response description
+
+definitions:
+  LocationsData:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: 'LocationInfo'
+        description: list of possible coordinates of provided query
+  LocationInfo:
+    type: object
+    properties:
+      latitude:
+        type: string
+        description: address latitude
+      longitude:
+        type: string
+        description: address longtitude
+  WeatherRequest:
+    type: object
+    properties:
+      city:
+        type: string
+      startDate:
+        type: string
+      endDate:
+        type: string
+  WeatherDailyData:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: 'TemperatureDailyInfo'
+        description: every day weather info
+  TemperatureDailyInfo:
+    type: object
+    properties:
+      date:
+        type: string
+        description: date of temp
+      tavg:
+        type: string
+        description: avg temp in this date
+      tmin:
+        type: string
+        description: min temp in this date
+      tmax:
+        type: string
+        description: max temp in this date
+
+
+

@@ -1,6 +1,6 @@
-package com.simonova.ecoinformerapp.configuration;
+package com.simonova.weatherapp.feignconfig;
 
-import com.simonova.ecoinformerapp.integration.api.WeatherApi;
+import com.simonova.weatherapp.integration.api.LocationApi;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
@@ -9,16 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class WeatherApiConfiguration {
+public class LocationConfiguration {
 
-    @Value("${weather.api.host}")
-    private String weatherApiHost;
-
+    @Value("${location.api.baseUrl}")
+    private String locationApiHost;
     @Bean
-    public WeatherApi feignWeatherApi()  {
+    public LocationApi feignWeatherApi()  {
         return Feign.builder()
                 .decoder(new JacksonDecoder())
                 .encoder(new JacksonEncoder())
-                .target(WeatherApi.class, weatherApiHost);
-    }
+                .target(LocationApi.class, locationApiHost);
+        }
+
 }

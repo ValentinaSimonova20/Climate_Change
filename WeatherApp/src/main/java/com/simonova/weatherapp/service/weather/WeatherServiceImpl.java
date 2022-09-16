@@ -1,8 +1,8 @@
 package com.simonova.weatherapp.service.weather;
 
-import com.simonova.weatherapp.controllers.model.WeatherRequest;
-import com.simonova.weatherapp.requests.location.model.LocationInfo;
-import com.simonova.weatherapp.requests.weather.model.WeatherDailyData;
+import com.simonova.weatherapp.model.LocationInfo;
+import com.simonova.weatherapp.model.WeatherDailyData;
+import com.simonova.weatherapp.model.WeatherRequest;
 import com.simonova.weatherapp.service.coordinates.CoordinatesService;
 import com.simonova.weatherapp.service.temperature.TemperatureService;
 import com.simonova.weatherapp.service.weather.model.SeasonYearModel;

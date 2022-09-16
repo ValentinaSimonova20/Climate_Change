@@ -1,7 +1,7 @@
 package com.simonova.weatherapp.service.weather;
 
-import com.simonova.weatherapp.controllers.model.WeatherRequest;
-import com.simonova.weatherapp.requests.weather.model.WeatherDailyData;
+import com.simonova.weatherapp.model.WeatherDailyData;
+import com.simonova.weatherapp.model.WeatherRequest;
 import com.simonova.weatherapp.service.weather.model.WeatherSeasonData;
 
 public interface WeatherService {
