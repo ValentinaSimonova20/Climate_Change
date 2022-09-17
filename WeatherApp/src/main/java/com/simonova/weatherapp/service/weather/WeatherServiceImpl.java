@@ -1,13 +1,8 @@
 package com.simonova.weatherapp.service.weather;
 
-import com.simonova.weatherapp.model.LocationInfo;
-import com.simonova.weatherapp.model.WeatherDailyData;
-import com.simonova.weatherapp.model.WeatherRequest;
+import com.simonova.weatherapp.model.*;
 import com.simonova.weatherapp.service.coordinates.CoordinatesService;
 import com.simonova.weatherapp.service.temperature.TemperatureService;
-import com.simonova.weatherapp.service.weather.model.SeasonYearModel;
-import com.simonova.weatherapp.service.weather.model.TemperatureInfoBySeason;
-import com.simonova.weatherapp.service.weather.model.WeatherSeasonData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +48,7 @@ public class WeatherServiceImpl implements WeatherService {
         List<TemperatureInfoBySeason> temperatureInfoBySeasons = getTempInfoConnectedToSeason(weatherRequest);
 
         // connect three result
-        return  WeatherSeasonData.builder().data(
+        return  new WeatherSeasonData().data(
                 getTemperaturesBySeason(
                         getAvgTempBySeasonAndYear(temperatureInfoBySeasons),
                         getTemperaturesBySeason(
@@ -66,7 +61,7 @@ public class WeatherServiceImpl implements WeatherService {
                                 TemperatureInfoBySeason::setMaxTemp
                         ),
                         TemperatureInfoBySeason::setAvgTemp
-                )).build();
+                ));
     }
 
 
@@ -78,7 +73,9 @@ public class WeatherServiceImpl implements WeatherService {
         mapToAddIntoResultList.forEach((key, value) -> getYearAndSeasonObject(key, resultList).ifPresentOrElse(
                 yearAndSeason -> consumer.accept(yearAndSeason, value),
                 () -> {
-                    TemperatureInfoBySeason newObject = new TemperatureInfoBySeason(key.getSeason(), key.getYear());
+                    TemperatureInfoBySeason newObject = new TemperatureInfoBySeason()
+                            .season(key.getSeason())
+                            .year(key.getYear());
                     consumer.accept(newObject, value);
                     resultList.add(newObject);
                 }));
@@ -151,27 +148,31 @@ public class WeatherServiceImpl implements WeatherService {
             List<TemperatureInfoBySeason> weatherInfo,
             ToDoubleFunction<TemperatureInfoBySeason> mapper
     ) {
-        return weatherInfo.stream().collect(Collectors.groupingBy(
-                temperatureInfoBySeason -> Arrays.asList(
-                        temperatureInfoBySeason.getSeason(),
-                        temperatureInfoBySeason.getYear()
-                ), Collectors.summarizingDouble(mapper))
-        ).entrySet().stream().collect(Collectors.toMap(entrySet ->
-                new SeasonYearModel(entrySet.getKey().get(0), entrySet.getKey().get(1)), Map.Entry::getValue)
-        );
+        return weatherInfo.stream().collect(
+                Collectors.groupingBy(
+                        temperatureInfoBySeason -> Arrays.asList(
+                                temperatureInfoBySeason.getSeason(),
+                                temperatureInfoBySeason.getYear()
+                        ),
+                        Collectors.summarizingDouble(mapper)
+                )
+        ).entrySet().stream().collect(Collectors.toMap(
+                entrySet -> new SeasonYearModel().season(entrySet.getKey().get(0)).year(entrySet.getKey().get(1)),
+                Map.Entry::getValue
+                ));
     }
 
     // get dailyInfo temperature. There are duplicates in season and year in result
     private List<TemperatureInfoBySeason> getTempInfoConnectedToSeason(WeatherRequest weatherRequest) {
         return getWeatherDailyData(weatherRequest).getData().stream()
                 .map(temperatureDailyInfo ->
-                        new TemperatureInfoBySeason(
-                                getSeasonOfDate(temperatureDailyInfo.getDate()),
-                                getYearOfDate(temperatureDailyInfo.getDate()),
-                                temperatureDailyInfo.getTmax(),
-                                temperatureDailyInfo.getTmin(),
-                                temperatureDailyInfo.getTavg()
-                        )).collect(Collectors.toList());
+                        new TemperatureInfoBySeason()
+                                .season(getSeasonOfDate(temperatureDailyInfo.getDate()))
+                                .year(getYearOfDate(temperatureDailyInfo.getDate()))
+                                .maxTemp(temperatureDailyInfo.getTmax())
+                                .minTemp(temperatureDailyInfo.getTmin())
+                                .avgTemp(temperatureDailyInfo.getTavg())
+                ).collect(Collectors.toList());
 
     }
 
