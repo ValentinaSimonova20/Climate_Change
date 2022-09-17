@@ -42,10 +42,45 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/WeatherDailyData' #Response object details
-        '400': #Unsuccessful response code
-          description: Invalid Employee ID supplied #Unsuccessful response description
-        '404': #Unsuccessful response code
-          description: Employee not found #Unsuccessful response description
+        '400':
+          description: Invalid parameters
+        '404':
+          description: Weather info not found
+
+  '/getSeasonWeatherInfo':
+    get:
+      tags:
+        - Weather
+      summary: get season weather info by city, from startDate to endDate
+      description: Returns season weather info (min temp, max temp, avg temp)
+      operationId: getSeasonWeatherInfo
+      produces:
+        - application/json
+      parameters:
+        - name: city
+          in: query
+          description: name of city from which you want to get weather info
+          required: true
+          type: string
+        - name: startDate
+          in: query
+          description: date from which you want to get weather info
+          required: true
+          type: string
+        - name: endDate
+          in: query
+          description: date to with you want to get weather info
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/WeatherSeasonData' #Response object details
+        '400':
+          description: Invalid parameters
+        '404':
+          description: Weather info not found
 definitions:
   WeatherDailyData:
     type: object
@@ -79,4 +114,24 @@ definitions:
         type: string
       endDate:
         type: string
+  TemperatureInfoBySeason:
+    type: object
+    properties:
+      season:
+        type: string
+      year:
+        type: string
+      maxTemp:
+        type: string
+      minTemp:
+        type: string
+      avgTemp:
+        type: string
+  WeatherSeasonData:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: 'TemperatureInfoBySeason'
 

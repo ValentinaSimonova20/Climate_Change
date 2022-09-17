@@ -2,6 +2,7 @@ package com.simonova.ecoinformerapp.controllers;
 
 import com.simonova.ecoinformerapp.model.WeatherDailyData;
 import com.simonova.ecoinformerapp.model.WeatherRequest;
+import com.simonova.ecoinformerapp.model.WeatherSeasonData;
 import com.simonova.ecoinformerapp.services.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,5 +18,10 @@ public class WeatherController {
     @GetMapping("/dailyweather")
     public @ResponseBody WeatherDailyData getWeatherDailyInfo(WeatherRequest weatherRequest) {
         return weatherService.getWeatherDailyData(weatherRequest);
+    }
+
+    @GetMapping("/seasonweather")
+    public @ResponseBody WeatherSeasonData getWeatherSeasonInfo(WeatherRequest weatherRequest) {
+        return weatherService.getWeatherSeasonData(weatherRequest);
     }
 }
