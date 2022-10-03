@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 export class SeasonWeather extends Component {
 
     state = {
-        seasonWeatherInf: []
+        seasonWeatherInf: [],
+        seasons: ["Winter", "Spring", "Summer", "Autumn"],
+        tempNames: ["minTemp", "maxTemp"]
     };
 
     async componentDidMount() {
@@ -20,21 +22,21 @@ export class SeasonWeather extends Component {
             .forEach(tempSeasonInfo => {
                 if(dict[tempSeasonInfo.year] == null) {
                     dict[tempSeasonInfo.year] = {}
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season] = {}
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season]['minTemp'] = tempSeasonInfo.minTemp;
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season]['maxTemp'] = tempSeasonInfo.maxTemp;
-                } else {
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season] = {}
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season]['minTemp'] = tempSeasonInfo.minTemp;
-                    dict[tempSeasonInfo.year][tempSeasonInfo.season]['maxTemp'] = tempSeasonInfo.maxTemp;
                 }
+                dict[tempSeasonInfo.year][tempSeasonInfo.season] = {}
+                dict[tempSeasonInfo.year][tempSeasonInfo.season]['minTemp'] = tempSeasonInfo.minTemp;
+                dict[tempSeasonInfo.year][tempSeasonInfo.season]['maxTemp'] = tempSeasonInfo.maxTemp;
             })
         console.log(dict);
         return dict;
     }
 
+    getValueForDisplay(year, seasonName, tempName, dictSeasonWeatherInf) {
+        return dictSeasonWeatherInf[year][seasonName] == null ? "" : dictSeasonWeatherInf[year][seasonName][tempName];
+    }
+
     render() {
-        const {seasonWeatherInf} = this.state;
+        const {seasonWeatherInf, seasons, tempNames} = this.state;
         const dictSeasonWeatherInf = this.getSeasonWeatherInfo(seasonWeatherInf);
         return (
             <div>
@@ -42,38 +44,35 @@ export class SeasonWeather extends Component {
                     <div className="App-intro">
                         <table border={1}>
                             <caption>Weather</caption>
-
                             <tr>
                                 <th rowSpan={2}>Year</th>
-                                <th colSpan={2}>Winter</th>
-                                <th colSpan={2}>Spring</th>
-                                <th colSpan={2}>Summer</th>
-                                <th colSpan={2}>Autumn</th>
+                                {seasons.map(season => <th colSpan={2}>{season}</th>)}
                             </tr>
                             <tr>
-                                <th>min t</th>
-                                <th>max t</th>
-                                <th>min t</th>
-                                <th>max t</th>
-                                <th>min t</th>
-                                <th>max t</th>
-                                <th>min t</th>
-                                <th>max t</th>
+                                {seasons.map(()=> tempNames.map((tempName) => <th>{tempName}</th>))}
                             </tr>
-                        {
-                            Object.keys(dictSeasonWeatherInf).map((year) =>
-                                <tr>
+                            {
+                                Object.keys(dictSeasonWeatherInf).map((year) =>
+                                    <tr>
                                     <td>{year}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Winter']['minTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Winter']['maxTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Spring'] == null ? "" : dictSeasonWeatherInf[year]['Spring']['minTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Spring'] == null ? "" : dictSeasonWeatherInf[year]['Spring']['maxTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Summer'] == null ? "" : dictSeasonWeatherInf[year]['Summer']['minTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Summer'] == null ? "" : dictSeasonWeatherInf[year]['Summer']['maxTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Autumn'] == null ? "" : dictSeasonWeatherInf[year]['Autumn']['minTemp']}</td>
-                                    <td>{dictSeasonWeatherInf[year]['Autumn'] == null ? "" : dictSeasonWeatherInf[year]['Autumn']['maxTemp']}</td>
-                                </tr>
-                        )}
+                                        {
+                                            seasons
+                                                .map(
+                                                    (season) => tempNames.map((tempName) =>
+                                                        <td>
+                                                            {this.getValueForDisplay(
+                                                                year,
+                                                                season,
+                                                                tempName,
+                                                                dictSeasonWeatherInf
+                                                            )}
+                                                        </td>
+                                                    )
+                                                )
+                                        }
+                                    </tr>
+                                )
+                            }
                         </table>
                     </div>
                 </header>
