@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Weather info</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table th:border="${1}">
+        <tr>
+            <th th:rowspan="${2}">Year</th>
+            <th th:each="season: ${seasons}" th:colspan="${2}" th:text="${season}"></th>
+        </tr>
+        <tr>
+            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
+            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
+            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
+            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
+        </tr>
+        <tr th:each="year: ${weatherDict.keySet()}">
+            <td th:text="${year}"></td>
+            <td th:each="temp : ${weatherDict.get(year).get('Winter')}" th:text="${temp}"></td>
+            <td th:each="temp : ${weatherDict.get(year).get('Spring')}" th:text="${temp}"></td>
+            <td th:each="temp : ${weatherDict.get(year).get('Summer')}" th:text="${temp}"></td>
+            <td th:each="temp : ${weatherDict.get(year).get('Autumn')}" th:text="${temp}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

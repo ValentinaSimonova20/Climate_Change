@@ -20,6 +20,13 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final CoordinatesService coordinatesService;
     private final TemperatureService temperatureService;
+    private static final String WINTER = "Winter";
+    private static final String SPRING = "Spring";
+    private static final String SUMMER = "Summer";
+    private static final String AUTUMN = "Autumn";
+    private static final String MIN_TEMP = "Min temp";
+    private static final String MAX_TEMP = "Max temp";
+    private static final String AVG_TEMP = "Avg temp";
 
     @Override
     public WeatherDailyData getWeatherDailyData(WeatherRequest weatherRequest) {
@@ -28,6 +35,31 @@ public class WeatherServiceImpl implements WeatherService {
                 weatherRequest.getStartDate(),
                 weatherRequest.getEndDate()
         );
+    }
+
+    @Override
+    public List<String> getAllSeasonNames() {
+        return Arrays.asList(WINTER, SPRING, SUMMER, AUTUMN);
+    }
+
+    @Override
+    public List<String> getAllTempNames() {
+        return Arrays.asList(MIN_TEMP, MAX_TEMP);
+    }
+
+    /**
+     * @param weatherSeasonData
+     * @return weather info in dict - {year1 : {season1 : {min temp, max temp}, season2 : {},...}, year2: {},...}
+     */
+    public Map<String, Map<String, List<String>>> getSeasonInfoForUi(WeatherSeasonData weatherSeasonData) {
+        Map<String, Map<String, List<String>>> result = new TreeMap<>();
+        weatherSeasonData.getData().forEach(tempInfo -> {
+            Map<String, List<String>> seasonInfo =
+                    result.containsKey(tempInfo.getYear()) ? result.get(tempInfo.getYear()) : new HashMap<>();
+            seasonInfo.put(tempInfo.getSeason(), Arrays.asList(tempInfo.getMinTemp(), tempInfo.getMaxTemp()));
+            result.put(tempInfo.getYear(), seasonInfo);
+        });
+        return result;
     }
 
     private WeatherDailyData getWeatherDailyData(LocationInfo locationInfo, String startDate, String endDate) {
@@ -48,7 +80,7 @@ public class WeatherServiceImpl implements WeatherService {
         List<TemperatureInfoBySeason> temperatureInfoBySeasons = getTempInfoConnectedToSeason(weatherRequest);
 
         // connect three result
-        return  new WeatherSeasonData().data(
+        return new WeatherSeasonData().data(
                 getTemperaturesBySeason(
                         getAvgTempBySeasonAndYear(temperatureInfoBySeasons),
                         getTemperaturesBySeason(
@@ -180,15 +212,15 @@ public class WeatherServiceImpl implements WeatherService {
         Month month = LocalDate.parse(date).getMonth();
 
         if(month == Month.DECEMBER || month == Month.JANUARY || month == Month.FEBRUARY) {
-            return "Winter";
+            return WINTER;
         }
         if(month == Month.MARCH || month == Month.APRIL || month == Month.MAY) {
-            return "Spring";
+            return SPRING;
         }
         if(month == Month.JUNE || month == Month.JULY || month == Month.AUGUST) {
-            return "Summer";
+            return SUMMER;
         }
-        return  "Autumn";
+        return AUTUMN;
     }
 
     private String getYearOfDate(String date) {
