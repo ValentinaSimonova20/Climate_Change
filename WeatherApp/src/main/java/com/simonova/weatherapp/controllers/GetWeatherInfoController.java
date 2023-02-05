@@ -6,7 +6,6 @@ import com.simonova.weatherapp.model.WeatherSeasonData;
 import com.simonova.weatherapp.service.weather.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,13 +23,5 @@ public class GetWeatherInfoController {
     @GetMapping("/getSeasonWeatherInfo")
     public @ResponseBody WeatherSeasonData getWeatherSeasonData(WeatherRequest weatherRequest) {
         return weatherService.getWeatherSeasonData(weatherRequest);
-    }
-
-    @GetMapping("/climateChange/getSeasonWeatherInfo")
-    public String getSeasonWeatherInfoPage(WeatherRequest weatherRequest, Model model) {
-        model.addAttribute("seasons", weatherService.getAllSeasonNames());
-        model.addAttribute("tempNames", weatherService.getAllTempNames());
-        model.addAttribute("weatherDict", weatherService.getSeasonInfoForUi(weatherService.getWeatherSeasonData(weatherRequest)));
-        return "weather-info";
     }
 }
