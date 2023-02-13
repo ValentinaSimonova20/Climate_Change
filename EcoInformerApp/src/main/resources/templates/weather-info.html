@@ -24,6 +24,8 @@
             <td th:each="temp : ${weatherDict.get(year).get('Autumn')}" th:text="${temp}"></td>
         </tr>
     </table>
-
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
 </body>
 </html>
