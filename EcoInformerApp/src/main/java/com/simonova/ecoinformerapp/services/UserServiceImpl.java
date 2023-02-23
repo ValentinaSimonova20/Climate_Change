@@ -28,16 +28,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
-        user.setUsername(userDto.getFirstName() + " " + userDto.getLastName());
+        user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Optional<Role> role = roleRepository.findByName(ERole.ROLE_ADMIN);
+        Optional<Role> role = roleRepository.findByName(ERole.ROLE_USER);
         if(role.isEmpty()){
-            role = Optional.of(checkRoleExist());
+            role = Optional.of(checkRoleExist(ERole.ROLE_USER));
         }
-        user.setRoles(Arrays.asList(role.get()));
+        user.setRoles(List.of(role.get()));
         userRepository.save(user);
     }
 
@@ -50,22 +50,20 @@ public class UserServiceImpl implements UserService{
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map((user) -> mapToUserDto(user))
+                .map(this::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
     private UserDto mapToUserDto(User user){
         UserDto userDto = new UserDto();
-        String[] str = user.getUsername().split(" ");
-        userDto.setFirstName(str[0]);
-        userDto.setLastName(str[1]);
+        userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
         return userDto;
     }
 
-    private Role checkRoleExist(){
+    private Role checkRoleExist(ERole eRole){
         Role role = new Role();
-        role.setName(ERole.ROLE_ADMIN);
+        role.setName(eRole);
         return roleRepository.save(role);
     }
 }
