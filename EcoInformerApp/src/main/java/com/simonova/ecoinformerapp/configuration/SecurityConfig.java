@@ -33,7 +33,7 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/register", "/login")
+                        .antMatchers("/register", "/login", "/climateChange/getSeasonWeatherInfo")
                         .permitAll()
                 )
                 .formLogin((form) -> form
