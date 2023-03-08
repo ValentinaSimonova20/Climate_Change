@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2a43681-6d8a-42bf-98ac-46187f5f20ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/climatechange/newsapp/integration/api/ApiClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/climatechange/newsapp/integration/api/EncodingUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/climatechange/newsapp/service/news/NewsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/models_requests.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/models_requests.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="c2a43681-6d8a-42bf-98ac-46187f5f20ae" name="Changes" comment="new ms news app" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,8 +51,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678011190966</updated>
-      <workItem from="1678011194196" duration="490000" />
+      <workItem from="1678011194196" duration="550000" />
     </task>
+    <task id="LOCAL-00001" summary="new ms news app">
+      <created>1678011713714</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678011713714</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -75,5 +76,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="new ms news app" />
+    <option name="LAST_COMMIT_MESSAGE" value="new ms news app" />
   </component>
 </project>
