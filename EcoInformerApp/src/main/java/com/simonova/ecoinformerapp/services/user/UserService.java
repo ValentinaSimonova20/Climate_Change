@@ -1,4 +1,4 @@
-package com.simonova.ecoinformerapp.services;
+package com.simonova.ecoinformerapp.services.user;
 
 import com.simonova.ecoinformerapp.models.User;
 import com.simonova.ecoinformerapp.models.dto.UserDto;

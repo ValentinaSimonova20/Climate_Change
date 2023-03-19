@@ -1,5 +1,6 @@
 package com.simonova.ecoinformerapp.configuration;
 
+import com.simonova.ecoinformerapp.integration.api.NewsApi;
 import com.simonova.ecoinformerapp.integration.api.WeatherApi;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -13,6 +14,8 @@ public class WeatherApiConfiguration {
 
     @Value("${weather.api.host}")
     private String weatherApiHost;
+    @Value("${news.api.host}")
+    private String newsApiHost;
 
     @Bean
     public WeatherApi feignWeatherApi()  {
@@ -20,5 +23,13 @@ public class WeatherApiConfiguration {
                 .decoder(new JacksonDecoder())
                 .encoder(new JacksonEncoder())
                 .target(WeatherApi.class, weatherApiHost);
+    }
+
+    @Bean
+    public NewsApi feignNewsApi() {
+        return Feign.builder()
+                .decoder(new JacksonDecoder())
+                .encoder(new JacksonEncoder())
+                .target(NewsApi.class, newsApiHost);
     }
 }

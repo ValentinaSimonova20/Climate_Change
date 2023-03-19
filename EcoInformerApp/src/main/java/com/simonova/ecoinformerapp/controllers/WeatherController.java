@@ -3,7 +3,7 @@ package com.simonova.ecoinformerapp.controllers;
 import com.simonova.ecoinformerapp.model.WeatherDailyData;
 import com.simonova.ecoinformerapp.model.WeatherRequest;
 import com.simonova.ecoinformerapp.model.WeatherSeasonData;
-import com.simonova.ecoinformerapp.services.WeatherService;
+import com.simonova.ecoinformerapp.services.weather.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

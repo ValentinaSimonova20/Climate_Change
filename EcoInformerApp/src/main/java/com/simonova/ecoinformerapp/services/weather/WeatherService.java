@@ -1,4 +1,4 @@
-package com.simonova.ecoinformerapp.services;
+package com.simonova.ecoinformerapp.services.weather;
 
 import com.simonova.ecoinformerapp.model.WeatherDailyData;
 import com.simonova.ecoinformerapp.model.WeatherRequest;

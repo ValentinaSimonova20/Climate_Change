@@ -2,7 +2,7 @@ package com.simonova.ecoinformerapp.controllers.auth;
 
 import com.simonova.ecoinformerapp.models.User;
 import com.simonova.ecoinformerapp.models.dto.UserDto;
-import com.simonova.ecoinformerapp.services.UserService;
+import com.simonova.ecoinformerapp.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

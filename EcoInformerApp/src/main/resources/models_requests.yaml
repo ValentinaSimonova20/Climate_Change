@@ -81,6 +81,30 @@ paths:
           description: Invalid parameters
         '404':
           description: Weather info not found
+  '/news/all':
+    get:
+      tags:
+        - News
+      summary: get all news by q
+      description: returns news by special word
+      operationId: getNewsData
+      produces:
+        - application/json
+      parameters:
+        - name: q
+          in: query
+          description: Keywords or phrases to search for in the article title and body
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/NewsData' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid request #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: Address not found #Unsuccessful response description
 definitions:
   WeatherDailyData:
     type: object
@@ -134,4 +158,53 @@ definitions:
         type: array
         items:
           $ref: 'TemperatureInfoBySeason'
+  NewsData:
+    type: object
+    properties:
+      articles:
+        type: array
+        items:
+          $ref: 'Article'
+        description: articles info
+  Article:
+    type: object
+    properties:
+      author:
+        type: string
+        description: article author
+      title:
+        type: string
+        description: article title
+      description:
+        type: string
+        description: article description
+      url:
+        type: string
+        description: article url
+      urlToImage:
+        type: string
+        description: article url to image
+      publishedAt:
+        type: string
+        description: article published date
+      content:
+        type: string
+        description: article content
+      source:
+        type: object
+        $ref: 'Source'
+  Source:
+    type: object
+    properties:
+      id:
+        type: string
+        description: article source id
+      name:
+        type: string
+        description: article source name
+  NewsRequest:
+    type: object
+    properties:
+      q:
+        type: string
 
