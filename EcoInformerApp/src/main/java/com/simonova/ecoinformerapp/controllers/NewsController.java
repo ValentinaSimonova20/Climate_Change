@@ -15,7 +15,7 @@ public class NewsController {
 
     @GetMapping("/news")
     public String getEcoNewsInfoPage(NewsRequest request, Model model) {
-        model.addAttribute("news", newsService.getAllNews(request.getQ()).getArticles().get(0));
+        model.addAttribute("articles", newsService.getAllNews(request.getQ()).getArticles());
         return "news-info";
     }
 }

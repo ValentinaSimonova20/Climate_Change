@@ -11,6 +11,13 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <br /><br /><br />
-<div th:text="${news}"></div>
+<div th:each="article: ${articles}">
+    <div>
+        <div th:text="${article.title}"></div>
+        <div th:text="${article.description}"></div>
+        <div th:text="${article.author}"></div>
+    </div>
+    <br><br>
+</div>
 </body>
 </html>
