@@ -15,6 +15,7 @@
     <div>
         <div th:text="${article.title}"></div>
         <div th:text="${article.description}"></div>
+        <div><img th:src="${article.urlToImage}" width="50%" height="50%"></div>
         <div th:text="${article.author}"></div>
     </div>
     <br><br>
