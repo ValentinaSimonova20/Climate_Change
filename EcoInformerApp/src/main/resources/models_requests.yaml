@@ -96,6 +96,16 @@ paths:
           description: Keywords or phrases to search for in the article title and body
           required: true
           type: string
+        - name: page
+          in: query
+          description: Use this to page through the results
+          required: true
+          type: integer
+        - name: pageSize
+          in: query
+          description: The number of results to return per page
+          required: true
+          type: integer
       responses:
         '200':
           description: successful operation
@@ -161,6 +171,9 @@ definitions:
   NewsData:
     type: object
     properties:
+      totalResults:
+        type: integer
+        description: The total number of results available for your request
       articles:
         type: array
         items:
@@ -207,4 +220,8 @@ definitions:
     properties:
       q:
         type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
 

@@ -1,7 +1,8 @@
 package com.simonova.ecoinformerapp.services.news;
 
 import com.simonova.ecoinformerapp.model.NewsData;
+import com.simonova.ecoinformerapp.model.NewsRequest;
 
 public interface NewsService {
-    NewsData getAllNews(String q);
+    NewsData getAllNews(NewsRequest newsRequest);
 }

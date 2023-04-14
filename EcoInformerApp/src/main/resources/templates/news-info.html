@@ -7,6 +7,7 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link th:href="@{/styles/news-style.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -20,5 +21,6 @@
     </div>
     <br><br>
 </div>
+<div th:replace="~{fragments/pagination/news :: pagination}"></div>
 </body>
 </html>

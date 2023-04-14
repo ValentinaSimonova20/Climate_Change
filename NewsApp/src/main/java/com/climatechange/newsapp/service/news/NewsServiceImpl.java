@@ -3,6 +3,7 @@ package com.climatechange.newsapp.service.news;
 import com.climatechange.newsapp.integration.api.NewsApi;
 import com.climatechange.newsapp.model.Article;
 import com.climatechange.newsapp.model.NewsData;
+import com.climatechange.newsapp.model.NewsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,13 @@ public class NewsServiceImpl implements NewsService {
     private String newsApiKey;
 
     @Override
-    public NewsData getNewsDataByQ(String q) {
-        NewsData newsData = newsApi.getNewsData(q, newsApiKey);
-        newsData.setArticles(newsData.getArticles().subList(0, 25)); // todo replace with pagination
+    public NewsData getNewsDataByQ(NewsRequest newsRequest) {
+        NewsData newsData = newsApi.getNewsData(
+                newsRequest.getQ(),
+                newsApiKey,
+                newsRequest.getPageSize(),
+                newsRequest.getPage()
+        );
         validateImageUrls(newsData.getArticles());
         return newsData;
     }

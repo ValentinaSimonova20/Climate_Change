@@ -25,6 +25,16 @@ paths:
           description: Keywords or phrases to search for in the article title and body
           required: true
           type: string
+        - name: pageSize
+          in: query
+          description: The number of results to return per page
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: Use this to page through the results.
+          required: false
+          type: integer
         - name: apiKey
           in: query
           description: Your API key
@@ -43,6 +53,9 @@ definitions:
   NewsData:
     type: object
     properties:
+      totalResults:
+        type: integer
+        description: The total number of results available for your request
       articles:
         type: array
         items:
@@ -84,5 +97,14 @@ definitions:
       name:
         type: string
         description: article source name
+  NewsRequest:
+    type: object
+    properties:
+      q:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
 
 

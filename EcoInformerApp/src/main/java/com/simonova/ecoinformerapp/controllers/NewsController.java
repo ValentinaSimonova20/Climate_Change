@@ -1,5 +1,6 @@
 package com.simonova.ecoinformerapp.controllers;
 
+import com.simonova.ecoinformerapp.model.NewsData;
 import com.simonova.ecoinformerapp.model.NewsRequest;
 import com.simonova.ecoinformerapp.services.news.NewsService;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,10 @@ public class NewsController {
 
     @GetMapping("/news")
     public String getEcoNewsInfoPage(NewsRequest request, Model model) {
-        model.addAttribute("articles", newsService.getAllNews(request.getQ()).getArticles());
+        NewsData newsData = newsService.getAllNews(request);
+        model.addAttribute("articles", newsData.getArticles());
+        model.addAttribute("totalPages", newsData.getTotalResults()/5);
+        model.addAttribute("currentPage", request.getPage());
         return "news-info";
     }
 }
