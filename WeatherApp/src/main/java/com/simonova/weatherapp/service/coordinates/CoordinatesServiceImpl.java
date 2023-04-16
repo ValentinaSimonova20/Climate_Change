@@ -2,7 +2,6 @@ package com.simonova.weatherapp.service.coordinates;
 
 import com.simonova.weatherapp.integration.api.LocationApi;
 import com.simonova.weatherapp.model.LocationInfo;
-import com.simonova.weatherapp.service.apiKey.ApiKeyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

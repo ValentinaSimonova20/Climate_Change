@@ -115,7 +115,7 @@ public class WeatherServiceImpl implements WeatherService {
         return getValueFromSummarize(
                 getDefaultSummarize(
                         weatherInfo,
-                        temp -> Double.parseDouble(temp.getMaxTemp())
+                        temp -> temp != null ? Double.parseDouble(temp.getMaxTemp()) : 0.0
                 ), temp -> String.valueOf(temp.getValue().getMax())
         );
     }

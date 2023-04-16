@@ -21,7 +21,6 @@ public class WeatherServiceImpl implements WeatherService {
     private static final String AUTUMN = "Autumn";
     private static final String MIN_TEMP = "Min temp";
     private static final String MAX_TEMP = "Max temp";
-    private static final String AVG_TEMP = "Avg temp";
 
     @Override
     public WeatherDailyData getWeatherDailyData(WeatherRequest weatherRequest) {

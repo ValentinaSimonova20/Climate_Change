@@ -25,7 +25,7 @@ paths:
           description: address by which you get coordinates
           required: true
           type: string
-        - name: accessKey
+        - name: access_key
           in: query
           description: accessKey to api
           required: true

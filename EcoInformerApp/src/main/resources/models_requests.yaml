@@ -144,10 +144,13 @@ definitions:
     properties:
       city:
         type: string
+        default: Moscow
       startDate:
         type: string
+        default: 2013-01-01
       endDate:
         type: string
+        default: 2021-01-01
   TemperatureInfoBySeason:
     type: object
     properties:
