@@ -12,7 +12,6 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class UserDto {
     private Long id;
-    @NotEmpty
     private String username;
     @NotEmpty(message = "Email should not be empty")
     @Email

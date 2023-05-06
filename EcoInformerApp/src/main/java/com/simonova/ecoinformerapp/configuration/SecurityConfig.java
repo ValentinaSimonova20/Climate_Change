@@ -31,15 +31,18 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf()
+                .disable()
                 .authorizeHttpRequests((requests) -> requests
                         .antMatchers("/register", "/login", "/climateChange/getSeasonWeatherInfo")
                         .permitAll()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .usernameParameter("email")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/users")
+                        .defaultSuccessUrl("/climateChange/getSeasonWeatherInfo")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
