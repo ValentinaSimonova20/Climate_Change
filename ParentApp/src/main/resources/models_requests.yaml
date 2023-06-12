@@ -1,0 +1,25 @@
+swagger: '2.0'
+info:
+  description: News requests api
+  version: 1.0.0 #API version
+  title: News requests # API title
+  license: #Swagger license info
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+schemes:
+  - http
+paths:
+  '/stub':
+    get:
+      tags:
+        - stub
+      summary: stub
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+
+
+

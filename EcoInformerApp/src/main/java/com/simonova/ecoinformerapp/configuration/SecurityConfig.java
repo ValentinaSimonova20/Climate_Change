@@ -34,7 +34,7 @@ public class SecurityConfig{
         http
                 .csrf()
                 .disable()
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeRequests((requests) -> requests
                         .antMatchers("/register", "/login", "/climateChange/getSeasonWeatherInfo")
                         .permitAll()
                 )

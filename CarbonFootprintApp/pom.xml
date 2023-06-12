@@ -8,10 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
     <artifactId>CarbonFootprintApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>CarbonFootprintApp</name>
+    <name>carbonfootprintapp</name>
     <description>CarbonFootprintApp</description>
     <build>
         <plugins>

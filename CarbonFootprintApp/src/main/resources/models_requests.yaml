@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  description: carbon footprint requests api
+  version: 1.0.0 #API version
+  title: Carbon footprint requests # API title
+  license: #Swagger license info
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+schemes:
+  - http
+paths:
+  '/estimate':
+    post:
+      tags:
+        - CarbonFootprint
+      summary: get activity estimation
+      description: returns estimation by activity
+      operationId: getEstimatedDate
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: emission_factor
+          schema:
+            $ref: '#/definitions/emission_factor'
+        - in: body
+          name: parameters
+          schema:
+            $ref: '#/definitions/emission_factor'
+
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/EmissionsData' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid request #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: Address not found #Unsuccessful response description
+definitions:
+  emission_factor:
+    type: object
+    properties:
+      activity_id:
+        type: string
+        description: An ID describing the activity that to search for
+      data_version:
+        type: string
+        description: The required Data Version string for this request
+  EmissionsData:
+    type: object
+    properties:
+      co2e:
+        type: number
+        description: Emission factor carbon dioxide equivalent.
+      co2e_unit:
+        type: string
+        description: The unit in which the co2e field is expressed.
+      co2e_calculation_method:
+        type: string
+        description: Which calculation methodology that was used for the calculation. Is always ar4, ar5 or ar6
+      co2e_calculation_origin:
+        type: string
+        description: Whether or not the data source or Climatiq made the calculation. Is always source or climatiq.
+      emission_factor:
+        $ref: '#/definitions/EmissionFactor'
+        description: The emission factor that was used for the calculation.
+      constituent_gases:
+        $ref: '#/definitions/ConstituentGases'
+        description: Indicates which constituent gases the emission factor is composed of.
+      audit_trail:
+        type: string
+        description: Indicates whether Audit trail was enabled for this request. Is one of enabled, disabled or selector.
+      activity_data:
+        $ref: '#/definitions/ActivityData'
+        description: Indicates the parameters which were multiplied by the factor to estimate emissions.
+
+  EmmissionFactor:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Emission factor name.
+      id:
+        type: string
+        description: Unique ID for this emission factor.
+      activity_id:
+        type: string
+        description: ID for the activity the emission factor applies to. Multiple factors can share the same activity_id, e.g. if they're from different sources or regions.
+      access_type:
+        type: string
+        description: Data access type - private or public. Public factors are available to all, while private factors are only accessible to you.
+      source:
+        type: string
+        description: Emission factor publisher.
+      source_dataset:
+        type: string
+        description: Dataset published by the source.
+      year:
+        type: number
+        description: Most relevant year for the emission factor according to the source.
+      region:
+        type: string
+        description: Geographic region the emission factor applies to.
+      category:
+        type: string
+        description: Emission factor category.
+      source_lca_activity:
+        type: string
+        description: Associated Life Cycle Assessment (LCA) activity.
+      data_quality_flags:
+        type: array
+        description: List of data quality flags for this emission factor. An empty list means no detected data quality issues.
+        items:
+          type: string
+  ConstituentGases:
+    type: object
+    properties:
+      co2e_total:
+        type: number
+        description: The total amount of GHG emitted per unit of activity expressed as kgCO2e, as reported by the source. It is null for Climatiq-performed calculations.
+      co2e_other:
+        type: number
+        description: The total amount of GHG emitted that are not CO2, CH4 or N20 - expressed in kgCO2e emitted per unit of activity, as reported by the source.
+      co2:
+        type: number
+        description: The amount of carbon dioxide (CO2) emitted per unit of activity expressed as kgCO2, as reported by the source.
+      ch4:
+        type: number
+        description: The amount of methane (CH4) emitted per unit of activity expressed as kgCH4, as reported by the source.
+      n2o:
+        type: number
+        description: The amount of nitrous oxide (N2O) emitted per unit of activity expressed as kgN2O, as reported by the source.
+  ActivityData:
+    type: object
+    properties:
+      activity_value:
+        type: number
+      activity_unit:
+        type: string
+
+
+
+
+
+
+
+
+
+
