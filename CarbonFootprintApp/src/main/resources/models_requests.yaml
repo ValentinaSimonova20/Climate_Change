@@ -21,13 +21,12 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: emission_factor
+          name: body
           schema:
-            $ref: '#/definitions/emission_factor'
-        - in: body
-          name: parameters
-          schema:
-            $ref: '#/definitions/emission_factor'
+            $ref: '#/definitions/body'
+        - in: header
+          name: Authorization
+          type: string
 
       responses:
         '200':
@@ -39,15 +38,20 @@ paths:
         '404': #Unsuccessful response code
           description: Address not found #Unsuccessful response description
 definitions:
-  emission_factor:
+  body:
     type: object
     properties:
-      activity_id:
-        type: string
-        description: An ID describing the activity that to search for
-      data_version:
-        type: string
-        description: The required Data Version string for this request
+      emission_factor:
+        type: object
+        properties:
+          activity_id:
+            type: string
+            description: An ID describing the activity that to search for
+          data_version:
+            type: string
+            description: The required Data Version string for this request
+      parameters:
+        type: object
   EmissionsData:
     type: object
     properties:
@@ -75,8 +79,7 @@ definitions:
       activity_data:
         $ref: '#/definitions/ActivityData'
         description: Indicates the parameters which were multiplied by the factor to estimate emissions.
-
-  EmmissionFactor:
+  EmissionFactor:
     type: object
     properties:
       name:
@@ -138,6 +141,13 @@ definitions:
       activity_value:
         type: number
       activity_unit:
+        type: string
+  MoneyParameters:
+    type: object
+    properties:
+      money:
+        type: number
+      money_unit:
         type: string
 
 
