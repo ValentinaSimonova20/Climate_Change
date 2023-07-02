@@ -19,6 +19,8 @@ public class CarbonFootprintController {
 
     @GetMapping
     public @ResponseBody EmissionsData getEmissionsData(String activityId) {
-        return carbonFootprintService.getCarbonFootprintInformation(activityId);
+        EmissionsData emissionsData = carbonFootprintService.getCarbonFootprintInformation(activityId);
+        log.info(emissionsData.toString());
+        return emissionsData;
     }
 }
