@@ -18,8 +18,8 @@ public class CarbonFootprintController {
     private final CarbonFootprintService carbonFootprintService;
 
     @GetMapping
-    public @ResponseBody EmissionsData getEmissionsData(String activityId) {
-        EmissionsData emissionsData = carbonFootprintService.getCarbonFootprintInformation(activityId);
+    public @ResponseBody EmissionsData getEmissionsData(String activityId, String year) {
+        EmissionsData emissionsData = carbonFootprintService.getCarbonFootprintInformation(activityId, year);
         log.info(emissionsData.toString());
         return emissionsData;
     }

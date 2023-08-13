@@ -50,6 +50,8 @@ definitions:
           data_version:
             type: string
             description: The required Data Version string for this request
+          year:
+            type: number
       parameters:
         type: object
   EmissionsData:

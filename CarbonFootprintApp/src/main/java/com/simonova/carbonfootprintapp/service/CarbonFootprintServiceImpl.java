@@ -18,11 +18,12 @@ public class CarbonFootprintServiceImpl implements CarbonFootprintService {
     private final CarbonFootprintProperties carbonFootprintProperties;
 
     @Override
-    public EmissionsData getCarbonFootprintInformation(String activityId) {
+    public EmissionsData getCarbonFootprintInformation(String activityId, String year) {
         Body body = new Body();
         BodyEmissionFactor bodyEmissionFactor = new BodyEmissionFactor();
         bodyEmissionFactor.activityId(activityTypeProperties.getType().get(activityId));
         bodyEmissionFactor.dataVersion(carbonFootprintProperties.getFootprint().get("data.version"));
+        bodyEmissionFactor.setYear(new BigDecimal(year));
         body.emissionFactor(bodyEmissionFactor);
         MoneyParameters moneyParameters = new MoneyParameters();
         moneyParameters.setMoney(new BigDecimal(500));

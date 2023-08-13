@@ -10,12 +10,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class WeatherApiConfiguration {
+public class ApiConfiguration {
 
     @Value("${weather.api.host}")
     private String weatherApiHost;
     @Value("${news.api.host}")
     private String newsApiHost;
+    @Value("${carbon.footprint.api.host}")
+    private String carbonFootprintApiHost;
 
     @Bean
     public WeatherApi feignWeatherApi()  {
