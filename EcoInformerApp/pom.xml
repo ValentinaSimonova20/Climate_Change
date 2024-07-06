@@ -108,6 +108,7 @@
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <dateLibrary>java8</dateLibrary>
+                                <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
                             <output>${project.build.directory}/generated-sources/swagger
                             </output>

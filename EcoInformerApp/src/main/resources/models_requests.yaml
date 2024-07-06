@@ -12,7 +12,7 @@ schemes:
 tags:
   - name: Weather
 paths:
-  '/getDailyWeatherInfo':
+  '/daily/max/temperature':
     get:
       tags:
         - Weather
@@ -47,40 +47,6 @@ paths:
         '404':
           description: Weather info not found
 
-  '/getSeasonWeatherInfo':
-    get:
-      tags:
-        - Weather
-      summary: get season weather info by city, from startDate to endDate
-      description: Returns season weather info (min temp, max temp, avg temp)
-      operationId: getSeasonWeatherInfo
-      produces:
-        - application/json
-      parameters:
-        - name: city
-          in: query
-          description: name of city from which you want to get weather info
-          required: true
-          type: string
-        - name: startDate
-          in: query
-          description: date from which you want to get weather info
-          required: true
-          type: string
-        - name: endDate
-          in: query
-          description: date to with you want to get weather info
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/WeatherSeasonData' #Response object details
-        '400':
-          description: Invalid parameters
-        '404':
-          description: Weather info not found
   '/news/all':
     get:
       tags:
@@ -158,12 +124,6 @@ definitions:
       date:
         type: string
         description: date of temp
-      tavg:
-        type: string
-        description: avg temp in this date
-      tmin:
-        type: string
-        description: min temp in this date
       tmax:
         type: string
         description: max temp in this date

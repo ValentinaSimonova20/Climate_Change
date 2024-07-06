@@ -10,43 +10,11 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<div class="d-flex justify-content-center p-5">
-    <form action="/climateChange/getSeasonWeatherInfo" method="get">
-        <div class="form-group row">
-            <div class="col-auto">
-                <label for="city">City</label>
-                <input type="text" class="form-control" name="city" id="city" th:value="${city}">
-            </div>
-            <div class="col-auto">
-                <label for="startDate">Start date</label>
-                <input type="date" class="form-control" name="startDate" id="startDate" th:value="${startDate}">
-            </div>
-            <div class="col-auto">
-                <label for="endDate">End date</label>
-                <input type="date" class="form-control" name="endDate" id="endDate" th:value="${endDate}">
-            </div>
-        </div>
-        <input type="submit" value="Get info">
-    </form>
+<div>
+    <div th:each="temp : ${data}">
+        <div th:text="${temp.date}"></div>
+        <div th:text="${temp.tmax}"></div>
+    </div>
 </div>
-    <table th:border="${1}" class="table">
-        <tr>
-            <th th:rowspan="${2}">Year</th>
-            <th th:each="season: ${seasons}" th:colspan="${2}" th:text="${season}"></th>
-        </tr>
-        <tr>
-            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
-            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
-            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
-            <th th:each="tempName: ${tempNames}" th:text="${tempName}"></th>
-        </tr>
-        <tr th:each="year: ${weatherDict.keySet()}">
-            <td th:text="${year}"></td>
-            <td th:each="temp : ${weatherDict.get(year).get('Winter')}" th:text="${temp}"></td>
-            <td th:each="temp : ${weatherDict.get(year).get('Spring')}" th:text="${temp}"></td>
-            <td th:each="temp : ${weatherDict.get(year).get('Summer')}" th:text="${temp}"></td>
-            <td th:each="temp : ${weatherDict.get(year).get('Autumn')}" th:text="${temp}"></td>
-        </tr>
-    </table>
 </body>
 </html>

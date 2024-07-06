@@ -9,8 +9,4 @@ import java.util.Map;
 
 public interface WeatherService {
     WeatherDailyData getWeatherDailyData(WeatherRequest weatherRequest);
-    WeatherSeasonData getWeatherSeasonData(WeatherRequest weatherRequest);
-    List<String> getAllSeasonNames();
-    List<String> getAllTempNames();
-    Map<String, Map<String, List<String>>> getSeasonInfoForUi(WeatherSeasonData weatherSeasonData);
 }
