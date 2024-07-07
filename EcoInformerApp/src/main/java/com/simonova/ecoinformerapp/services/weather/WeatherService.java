@@ -9,4 +9,6 @@ import java.util.Map;
 
 public interface WeatherService {
     WeatherDailyData getWeatherDailyData(WeatherRequest weatherRequest);
+
+    List<List<Object>> getJanuaryWeatherDailyData(WeatherDailyData weatherDailyData);
 }

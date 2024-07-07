@@ -20,7 +20,9 @@ public class WeatherController {
 
     @GetMapping("/dailyweather")
     public String getWeatherDailyInfo(WeatherRequest weatherRequest, Model model) {
-        List<TemperatureDailyInfo> data = weatherService.getWeatherDailyData(weatherRequest).getData();
+
+        List<List<Object>> data =
+                weatherService.getJanuaryWeatherDailyData(weatherService.getWeatherDailyData(weatherRequest));
         // todo сделать из этого графики
         model.addAttribute("data", data);
         return "weather-info";
