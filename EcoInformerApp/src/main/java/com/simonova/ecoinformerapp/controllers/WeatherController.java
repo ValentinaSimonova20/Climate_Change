@@ -1,6 +1,7 @@
 package com.simonova.ecoinformerapp.controllers;
 
 import com.simonova.ecoinformerapp.model.TemperatureDailyInfo;
+import com.simonova.ecoinformerapp.model.WeatherDailyData;
 import com.simonova.ecoinformerapp.model.WeatherRequest;
 import com.simonova.ecoinformerapp.services.weather.WeatherService;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -21,10 +23,11 @@ public class WeatherController {
     @GetMapping("/dailyweather")
     public String getWeatherDailyInfo(WeatherRequest weatherRequest, Model model) {
 
+        WeatherDailyData weatherDailyData = weatherService.getWeatherDailyData(weatherRequest);
         List<List<Object>> data =
-                weatherService.getJanuaryWeatherDailyData(weatherService.getWeatherDailyData(weatherRequest));
-        // todo сделать из этого графики
+                weatherService.getJanuaryWeatherDailyData(weatherDailyData);
         model.addAttribute("data", data);
+        model.addAttribute("headers", Arrays.asList(weatherService.getHeaders(weatherDailyData)));
         return "weather-info";
     }
 

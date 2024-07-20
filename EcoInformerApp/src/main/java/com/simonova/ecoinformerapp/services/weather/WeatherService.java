@@ -11,4 +11,5 @@ public interface WeatherService {
     WeatherDailyData getWeatherDailyData(WeatherRequest weatherRequest);
 
     List<List<Object>> getJanuaryWeatherDailyData(WeatherDailyData weatherDailyData);
+    String[] getHeaders(WeatherDailyData weatherDailyData);
 }

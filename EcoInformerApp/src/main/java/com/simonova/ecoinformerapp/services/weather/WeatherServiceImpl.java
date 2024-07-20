@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,30 +29,29 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public List<List<Object>> getJanuaryWeatherDailyData(WeatherDailyData weatherDailyData) {
         List<List<Object>> result = new ArrayList<>();
-        List<Object> headers = new ArrayList<>(getHeaders(weatherDailyData));
-        headers.add(0, "dates");
-        result.add(headers);
-        fillTable(result, headers.size());
+        String[] headers = getHeaders(weatherDailyData);
+        // заполнение таблицы первональными значениями чтобы обеспечить одинаковое число элементов в каждом списке
+        fillTable(result, headers.length);
         weatherDailyData
                 .getData()
                 .stream()
                 .filter(info -> info.getDate().contains("-01-"))
                 .forEach(info -> {
-                    int rowIndex = Integer.parseInt(info.getDate().split("-")[2]);
-                    int columnIndex = headers.indexOf(info.getDate().split("-")[0]);
+                    int rowIndex = Integer.parseInt(info.getDate().split("-")[2]) - 1;
+                    int columnIndex = Arrays.asList(headers).indexOf(info.getDate().split("-")[0]);
                     result.get(rowIndex).set(columnIndex, Double.valueOf(info.getTmax()));
                 });
-        result.remove(0);
         return result;
     }
 
-    private List<String> getHeaders(WeatherDailyData weatherDailyData) {
-        return weatherDailyData
-                .getData()
-                .stream()
-                .filter(info -> info.getDate().contains("-01-"))
-                .map(info -> info.getDate().split("-")[0]
-                ).distinct().sorted().collect(Collectors.toList());
+    public String[] getHeaders(WeatherDailyData weatherDailyData) {
+        return Stream.concat(Arrays.stream(new String[] {"0"}), Arrays.stream(weatherDailyData
+                        .getData()
+                        .stream()
+                        .filter(info -> info.getDate().contains("-01-"))
+                        .map(info -> info.getDate().split("-")[0]
+                        ).distinct().sorted().toArray(String[]::new)))
+                .toArray(String[]::new);
     }
 
     private void fillTable(List<List<Object>> result, int capacity) {
