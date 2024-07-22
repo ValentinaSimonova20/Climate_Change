@@ -1,6 +1,5 @@
 package com.simonova.ecoinformerapp.controllers;
 
-import com.simonova.ecoinformerapp.model.TemperatureDailyInfo;
 import com.simonova.ecoinformerapp.model.WeatherDailyData;
 import com.simonova.ecoinformerapp.model.WeatherRequest;
 import com.simonova.ecoinformerapp.services.weather.WeatherService;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -24,8 +24,7 @@ public class WeatherController {
     public String getWeatherDailyInfo(WeatherRequest weatherRequest, Model model) {
 
         WeatherDailyData weatherDailyData = weatherService.getWeatherDailyData(weatherRequest);
-        List<List<Object>> data =
-                weatherService.getJanuaryWeatherDailyData(weatherDailyData);
+        List<List<Double>> data = weatherService.getJanuaryWeatherDailyData(weatherDailyData).stream().map(doubleArray -> Arrays.stream(doubleArray).collect(Collectors.toList())).collect(Collectors.toList());
         model.addAttribute("data", data);
         model.addAttribute("headers", Arrays.asList(weatherService.getHeaders(weatherDailyData)));
         return "weather-info";

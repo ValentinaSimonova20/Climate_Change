@@ -1,6 +1,6 @@
 package com.simonova.weatherapp.controllers;
 
-import com.simonova.weatherapp.model.WeatherDailyData;
+import com.simonova.weatherapp.model.ResultWeatherDailyData;
 import com.simonova.weatherapp.model.WeatherRequest;
 import com.simonova.weatherapp.service.weather.WeatherService;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ public class GetWeatherInfoController {
     private WeatherService weatherService;
 
     @GetMapping("/daily/max/temperature")
-    public @ResponseBody WeatherDailyData getWeatherInfo(WeatherRequest weatherRequest) {
+    public @ResponseBody ResultWeatherDailyData getWeatherInfo(WeatherRequest weatherRequest) {
         return weatherService.getWeatherDailyData(weatherRequest);
     }
 }

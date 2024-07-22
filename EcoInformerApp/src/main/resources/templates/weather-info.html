@@ -14,15 +14,24 @@
 
         function drawChart() {
           var data = new google.visualization.DataTable();
-          let headers = [[${headers}]].slice(1);
+          let dataFromBack = [[${data}]]
+          let headers = [[${headers}]];
+
           data.addColumn('number', "date")
+
           for (const header of headers) {
             data.addColumn('number', header.toString());
           }
-          data.addRows([[${data}]]);
+
+
+          for (let i = 0; i < dataFromBack.length; i++) {
+             dataFromBack[i].unshift(i + 1)
+          }
+
+          data.addRows(dataFromBack);
 
           var options = {
-            title: 'Company Performance',
+            title: 'Изменение максимальной темпиратуры',
             hAxis: {title: 'dates',  titleTextStyle: {color: '#333'}},
             vAxis: {minValue: 0}
           };
