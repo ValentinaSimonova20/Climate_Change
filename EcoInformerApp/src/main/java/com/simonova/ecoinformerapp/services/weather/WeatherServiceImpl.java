@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,15 +27,15 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public List<Double[]> getJanuaryWeatherDailyData(WeatherDailyData weatherDailyData) {
+    public List<Double[]> getWeatherDailyDataByMonth(WeatherDailyData weatherDailyData, Month month) {
         List<double[]> result = new ArrayList<>();
         String[] headers = getHeaders(weatherDailyData);
         // заполнение таблицы первональными значениями чтобы обеспечить одинаковое число элементов в каждом списке
-        fillTable(result, headers.length);
+        fillTable(result, headers.length, month.length(true));
         weatherDailyData
                 .getData()
                 .stream()
-                .filter(info -> info.getMonth() == 1)
+                .filter(info -> info.getMonth() == month.ordinal() + 1)
                 .forEach(info -> {
                     int rowIndex = info.getDay() - 1;
                     int columnIndex = Arrays.asList(headers).indexOf(info.getYear().toString());
@@ -52,8 +53,8 @@ public class WeatherServiceImpl implements WeatherService {
                         ).distinct().sorted().toArray(String[]::new);
     }
 
-    private void fillTable(List<double[]> result, int capacity) {
-        for(int i = 0; i < 31; i++) {
+    private void fillTable(List<double[]> result, int capacity, int lengthOfTheMonth) {
+        for(int i = 0; i < lengthOfTheMonth; i++) {
             result.add(new double[capacity]);
         }
     }

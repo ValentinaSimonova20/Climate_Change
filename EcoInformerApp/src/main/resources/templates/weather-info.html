@@ -44,5 +44,22 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div id="chart_div" style="width: 100%; height: 500px;"></div>
+<form th:action="@{/dailyweather}">
+    <select th:name="month">
+        <option value="JANUARY">Январь</option>
+        <option value="FEBRUARY">Февраль</option>
+        <option value="MARCH">Март</option>
+        <option value="APRIL">Апрель</option>
+        <option value="MAY">Май</option>
+        <option value="JUNE">Июнь</option>
+        <option value="JULY">Июль</option>
+        <option value="AUGUST">Август</option>
+        <option value="SEPTEMBER">Сентябрь</option>
+        <option value="NOVEMBER">Октябрь</option>
+        <option value="OCTOBER">Ноябрь</option>
+        <option value="DECEMBER">Декабрь</option>
+    </select>
+    <input type="submit"/>
+</form>
 </body>
 </html>
